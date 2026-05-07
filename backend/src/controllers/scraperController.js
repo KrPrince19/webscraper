@@ -26,9 +26,8 @@ export const scrapeStories = async (req, res) =>{
             stories.push({
                 title,
                 url,
-                point,
-                author,
-                postedAt,
+                points,
+                author
             })
 
         });
