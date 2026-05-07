@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken"
 import User from "../models/Users.js"
 
-const authMiddleware = async (res, res , next)=>{
+const authMiddleware = async (req, res , next)=>{
 
     try{
-        const token = request.headers.authorization;
+        const token = req.headers.authorization;
 
         if(!token){
             return res.status(401).json({
@@ -13,7 +13,7 @@ const authMiddleware = async (res, res , next)=>{
             });
         }
 
-        const decode = jwt.verify(token, process.env.JWt_SECRET);
+        const decode = jwt.verify(token, process.env.JWT_SECRET);
 
         req.user = await User.findById(decode.id).select("-password");
         next();

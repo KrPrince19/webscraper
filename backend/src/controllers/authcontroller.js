@@ -3,13 +3,14 @@ import jwt from "jsonwebtoken";
 import User from "../models/Users.js";
 
 const generateToken =(id) =>{
-    return jwt.sign({id}, process.env.JWT_SECR,{
+    return jwt.sign({id}, process.env.JWT_SECRET,{
         expiresIn:"30d",
     });
 };
 
 export const registerUser = async(req, res) =>{
     try{
+        const { name, email, password } = req.body;
         const userExists = await User.findOne({email});
 
         if(userExists){
@@ -18,7 +19,7 @@ export const registerUser = async(req, res) =>{
             });
         }
 
-        const  hashedPassword = await bcrypt.hash(password, 10);
+        const  hashedPassword = await bcryptjs.hash(password, 10);
 
         const user = await User.create({
             name,
@@ -27,7 +28,7 @@ export const registerUser = async(req, res) =>{
         });
 
         res.status(201).json({
-            _id:user_id,
+            _id:user._id,
             name:user.name,
             email:user.email,
             token:generateToken(user._id),
@@ -54,7 +55,7 @@ export const loginUser = async(req, res) =>{
             });
         }
 
-        const isMatch = await bcrypt.compare(password,user.password);
+        const isMatch = await bcryptjs.compare(password,user.password);
 
         if(!isMatch){
             return res.status(400).json({
@@ -62,8 +63,8 @@ export const loginUser = async(req, res) =>{
             });
         }
 
-        res.josn({
-            _id:user.id,
+        res.json({
+            _id:user._id,
             name:user.name,
             email:user.email,
             token:generateToken(user._id)
