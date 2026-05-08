@@ -1,91 +1,103 @@
-***starting backend implementation first***
+# NewsScraper
 
+A full-stack web application designed to automatically scrape, display, and manage top news stories. Built with a modern Monorepo architecture, NewsScraper allows users to view extracted data in real-time, register/log in securely, and bookmark their favorite stories.
 
-`step 1`
+## 🚀 Tech Stack
 
-**Setup**
-npm install express mongoose dotenv cors bcryptjs jsonwebtoken axios cheerio
-npm install nodemon -D
+**Frontend**
+*   **Framework:** React (Bootstrapped with Vite)
+*   **Styling:** Tailwind CSS (Modern UI & animations)
+*   **Routing:** React Router v6
+*   **State Management:** React Context API
+*   **HTTP Client:** Axios
 
-**folder structure**
-/backend
-    /models
-        /user.js
-    /routes
-        /auth.js
-        /scrape.js
-    /controllers
-        /auth.js
-        /scrape.js
-    /middleware
-        /auth.js
-    /config
-        /db.js
-    /server.js
+**Backend**
+*   **Runtime:** Node.js
+*   **Framework:** Express.js
+*   **Database:** MongoDB & Mongoose
+*   **Scraping:** Cheerio
+*   **Authentication:** JSON Web Tokens (JWT) & bcryptjs
 
+**Deployment**
+*   **Hosting:** Vercel (Experimental Multi-Service Monorepo)
 
-`step 2`
+## 📁 Folder Structure
 
-**models**
-  /story.js 
-  /users.js
-  
-
- **server running**  
- http://localhost:5000
-
-`step 3`
-
-authentication routes
-  /register
-  /login  
-
-`step 4`
-  routes
-    
-  `step 5`
-
- ***routes***
-    /api/stories
-    /api/stories/:id
-    /api/stories/:id/bookmark
-
-    ***controllers***
-        /getstories
-        /getsingle story
-
-***frontend***
-
-`npm create vite@latest frontend`
-`cd frontend`
-`npm install`
-`npm run dev`
-`npm install axios react-router-dom`
-
-
-***Folder Structure***
-frontend/
+```text
+webscraper/
 │
-├── src/
-│   ├── api/
-│   │   └── axios.js
-│   │
-│   ├── components/
-│   │   ├── Navbar.jsx
-│   │   ├── ProtectedRoute.jsx
-│   │   └── StoryCard.jsx
-│   │
-│   ├── context/
-│   │   └── AuthContext.jsx
-│   │
-│   ├── pages/
-│   │   ├── Home.jsx
-│   │   ├── Login.jsx
-│   │   ├── Register.jsx
-│   │   └── Bookmarks.jsx
-│   │
-│   ├── App.jsx
-│   └── main.jsx
+├── backend/               # Node.js & Express Backend
+│   ├── src/
+│   │   ├── config/        # Database configurations (db.js)
+│   │   ├── controllers/   # Route handler logic
+│   │   ├── middleware/    # Custom middlewares (e.g., auth validation)
+│   │   ├── models/        # Mongoose schemas (User, Story)
+│   │   ├── routes/        # Express route definitions
+│   │   └── server.js      # Main backend entry point
+│   ├── .env               # Backend environment variables
+│   └── package.json       # Backend dependencies
 │
-└── package.json
+├── frontend/              # Vite & React Frontend
+│   ├── src/
+│   │   ├── api/           # Axios instance configuration
+│   │   ├── assets/        # Static files and images
+│   │   ├── components/    # Reusable UI components (Navbar, StoryCard)
+│   │   ├── context/       # Global state management (AuthContext)
+│   │   ├── pages/         # View components (Home, Login, Register, Bookmarks)
+│   │   ├── App.jsx        # Root component and Routing logic
+│   │   ├── index.css      # Tailwind & Global styles
+│   │   └── main.jsx       # React application mounting
+│   ├── .env               # Frontend environment variables
+│   ├── tailwind.config.js # Tailwind CSS configuration
+│   └── package.json       # Frontend dependencies
+│
+├── vercel.json            # Vercel multi-service routing config
+└── README.md              # Project documentation
+```
 
+## ⚙️ Local Development Setup
+
+### 1. Prerequisites
+*   Node.js (v16 or higher)
+*   MongoDB (Local instance or MongoDB Atlas URI)
+
+### 2. Backend Setup
+```bash
+cd backend
+npm install
+
+# Create a .env file in the backend directory with your credentials:
+# PORT=5000
+# MONGO_URI=your_mongodb_connection_string
+# JWT_SECRET=your_secret_key
+
+npm run dev # Starts the nodemon dev server on http://localhost:5000
+```
+
+### 3. Frontend Setup
+```bash
+cd frontend
+npm install
+
+# Your frontend/.env file should contain:
+# VITE_BACKEND_URI=http://localhost:5000/api
+
+npm run dev # Starts the Vite development server
+```
+
+## ☁️ Deployment
+
+This project is structured for a unified, single-project deployment on Vercel using `experimentalServices`.
+
+1. Push your monorepo to GitHub.
+2. Import the project into Vercel, leaving the root directory as `webscraper/`.
+3. Configure your Environment Variables in the Vercel project settings:
+   * **Backend:** Add `MONGO_URI` and `JWT_SECRET`.
+   * **Frontend:** Set `VITE_BACKEND_URI=/_/backend/api` (so the production frontend points to the routed backend).
+4. Deploy!
+
+## ✨ Key Features
+*   **Web Scraping:** Automatically extracts and serves top story data.
+*   **User Authentication:** Secure signup and login flow using JWT.
+*   **Bookmarks:** Logged-in users can bookmark specific stories and view them on a protected page.
+*   **Dynamic UI:** Fully responsive design using Tailwind CSS.
