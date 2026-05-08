@@ -36,7 +36,11 @@ function Login() {
 
       navigate("/");
     } catch (error) {
-      alert(error.response.data.message);
+      alert(
+        error.response?.data?.message || 
+        error.message || 
+        "An error occurred during login."
+      );
     }
   };
 
