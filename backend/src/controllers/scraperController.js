@@ -10,24 +10,27 @@ export const scrapeStories = async (req, res) =>{
 
         const stories = [];
 
-        $(".authing").slice(0, 10).each((index, element) => {
+        $(".athing").slice(0, 10).each((index, element) => {
 
-            const title = $(element).find(".titleline a").text().trim();
+            const title = $(element).find(".titleline a").first().text().trim();
 
-            const url = $(element).find(".titleline a").attr("href");
+            const url = $(element).find(".titleline a").first().attr("href");
 
             const subtext = $(element).next();
             
             const points =
-            parseInt(subtext.find("score").text()) || 0;
+            parseInt(subtext.find(".score").text()) || 0;
 
-            const author = subtext.find(".age").text();
+            const author = subtext.find(".hnuser").text() || "Unknown";
+            
+            const postedAt = subtext.find(".age").text() || "Unknown";
 
             stories.push({
                 title,
                 url,
                 points,
-                author
+                author,
+                postedAt
             })
 
         });

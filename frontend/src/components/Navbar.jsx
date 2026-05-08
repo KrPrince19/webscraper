@@ -12,10 +12,14 @@ function Navbar() {
       <Link to="/" className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-purple-400 to-indigo-500 tracking-tight">NewsScraper</Link>
 
       <div className="flex gap-8 items-center">
+        <Link to="/" className="text-slate-400 font-medium transition-colors hover:text-slate-50">
+          Total Data
+        </Link>
+        
         {user ? (
           <>
             <Link to="/bookmarks" className="text-slate-400 font-medium transition-colors hover:text-slate-50">
-              Bookmarks
+              Bookmarked Data
             </Link>
 
             <button onClick={logout} className="bg-white/5 shadow-none border border-white/10 text-white py-2.5 px-6 rounded-full font-semibold cursor-pointer transition-all hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_4px_15px_rgba(0,0,0,0.2)]">

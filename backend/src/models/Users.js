@@ -19,7 +19,11 @@ const UserSchema = new mongoose.Schema({
     timestamp:{
         type:Date,
         default:Date.now(),
-    }
+    },
+    bookmarks: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Story"
+    }]
 
 })
 export default mongoose.model("Users", UserSchema);

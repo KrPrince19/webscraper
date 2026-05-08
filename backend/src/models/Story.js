@@ -10,10 +10,10 @@ const StorySchema = new mongoose.Schema({
 
     author:String,
 
-    postedAT: String
+    postedAt: String
 },
 {
-    timestamp:true,
+    timestamps:true,
 }
 
 );
